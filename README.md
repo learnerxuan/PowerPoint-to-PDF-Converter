@@ -129,7 +129,7 @@ def convert_pptx_to_pdf(input_folder):
 
 if __name__ == "__main__":
     # >>> IMPORTANT: CHANGE THIS PATH TO YOUR POWERPOINT FOLDER <<<
-    powerpoint_folder = r"C:\Users\User\OneDrive - Asia Pacific University of Technology And Innovation (APU)\Desktop\APU\Data Analysis"
+    powerpoint_folder = r"CHANGE THIS PATH TO YOUR POWERPOINT FOLDER"
     
     convert_pptx_to_pdf(powerpoint_folder)
 ```
