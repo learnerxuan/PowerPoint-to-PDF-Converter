@@ -175,14 +175,6 @@ You can customize the script behavior by modifying these settings:
 - Cannot convert password-protected presentations without manual intervention
 - Processing speed depends on presentation complexity and system performance
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request or open an Issue for any bugs or feature requests.
-
 ## Acknowledgments
 
 - Uses the `pywin32` library for COM interface access
