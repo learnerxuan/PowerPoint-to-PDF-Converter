@@ -101,18 +101,28 @@ Before we talk about vulnerabilities, you need to understand **how a running pro
 When a program runs, the OS gives it a virtual address space. It looks roughly like this (simplified):
 
 ```
-High Address (0xffff...)
-┌───────────────────────────┐
-│         Stack             │  ← grows downward (toward lower addresses)
-│           ↓               │     stores local variables, return addresses
-├───────────────────────────┤
-│           ↑               │
-│          Heap             │  ← grows upward (dynamic allocations: malloc)
-├───────────────────────────┤
-│     libc / libraries      │  ← shared library code loaded here
-├───────────────────────────┤
-│    Binary (.text, .data)  │  ← your program's code and data
-└───────────────────────────┘
+Address Space (0x7FFFFFFFFFFF)
+┌───────────────────────────────────────┐
+│            Kernel Space               │  ← Restricted (Top of memory)
+├───────────────────────────────────────┤
+│               Stack                   │  ← Grows DOWN (Starts ~0x7ffffff...)
+├───────────────────────────────────────┤
+│                 ↓                     │
+│           (Large Gap)                 │  ← Randomly sized via ASLR
+│                 ↑                     │
+├───────────────────────────────────────┤
+│         Memory Mapping Segment        │  ← Shared Libs (libc.so), mmap(),
+│   (also grows DOWN in modern Linux)   │    Thread Stacks, etc.
+├───────────────────────────────────────┤
+│                 ↑                     │
+│               Heap                    │  ← Grows UP (via brk/sbrk)
+├───────────────────────────────────────┤
+│           BSS (Uninit Data)           │  ← Globals set to zero
+├───────────────────────────────────────┤
+│          Data (Init Data)             │  ← Globals with explicit values
+├───────────────────────────────────────┤
+│          Text (Code / ELF)            │  ← Your compiled instructions
+└───────────────────────────────────────┘
 Low Address (0x0000...)
 ```
 
